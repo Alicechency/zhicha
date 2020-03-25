@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ctbri.ctuiinspection.dao.mapper.TopicMapper" >
+
+	<resultMap type="Topic" id="simpleTopic">
+		<id column="topic_id" property="topicId"/>
+		<result column="topic_name" property="topicName"/>
+	</resultMap>
+
+	<!-- 根据ID集合获取推荐律师 -->
+	<select id="findTopicsByLawyerName" parameterType="string" resultMap="simpleTopic">
+		SELECT topic_id,topic_name 
+		FROM dim_topic 
+		WHERE topic_id IN (
+			SELECT ct_topic_id 
+			FROM dim_case_topic
+			WHERE ct_case_id IN (
+				SELECT lawyer_case_id 
+				FROM dim_lawyer_person
+				WHERE lawyer_name = #{lawyerName}
+			)
+		)
+	</select>
+	
+	<select id="findTopicByLawyerId" parameterType="int" resultType="string">
+		SELECT topic_name FROM dim_topic 
+		WHERE topic_id IN (
+			SELECT ct_topic_id FROM dim_case_topic
+			WHERE ct_case_id IN (
+				SELECT lawyer_case_id FROM dim_lawyer_person
+				WHERE lawyer_id = #{lawyerId}
+			)
+		)
+	</select>
+		
+</mapper>

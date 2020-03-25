@@ -1,0 +1,45 @@
+.center-container {
+    position: absolute;
+    width: 100%;
+    top: 20%;
+    text-align: center;
+    /*margin: 0 auto;*/
+    /*display: -webkit-flex;*/
+    /*display: flex;*/
+
+
+    /*flex-direction: column;*/
+    /*justify-content: center;*/
+    /*align-items:center;*/
+
+}
+
+#searchBar
+{
+    background:url(../img/search_index.png);
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:right;
+    /*cursor:pointer;*/
+}
+
+.center-block{
+    text-align: center;
+}
+.center-block img{
+    width:100px;
+    height:100px;
+}
+.input-group{
+    width: 460px;
+    text-align: center;
+    margin: 0 auto;
+}
+#searchButton{
+    background: url(../img/search-button.jpeg);width: 90px;height: 35px;
+}
+#bg{
+    position:fixed;bottom: 0;
+    width: 100%;
+}
+body{height: 100%}

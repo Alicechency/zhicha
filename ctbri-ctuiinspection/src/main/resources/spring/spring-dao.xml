@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/tx 
+http://www.springframework.org/schema/tx/spring-tx.xsd
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop.xsd
+">
+
+	<context:component-scan base-package="com.ctbri.ctuiinspection" />
+	
+	<!-- Neo4j相关配置 -->
+	
+	<bean id="poolConfig" class="com.ctbri.common.pool.PoolConfig">
+		<property name="maxTotal" value="${pool.maxTotal}" />
+		<property name="maxIdle" value="${pool.maxIdle}" />
+		<property name="minIdle" value="${pool.minIdle}" />
+	</bean>
+
+	<bean id="neo4jBean" class="com.ctbri.dao.neo4j.pool.Neo4jBean">
+		<property name="url" value="${neo4j.url}" />
+		<property name="username" value="${neo4j.username}" />
+		<property name="password" value="${neo4j.password}" />
+	</bean>
+
+	<bean id="neo4jPoolFactory" class="com.ctbri.dao.neo4j.pool.Neo4jPoolFactory" scope="singleton">
+		<property name="neo4jBean" ref="neo4jBean" />
+	</bean>
+	
+	<bean id="neo4jPool" class="com.ctbri.dao.neo4j.pool.Neo4jPool">
+		<constructor-arg index="0" ref="neo4jPoolFactory"/>
+		<constructor-arg index="1" ref="poolConfig"/>
+	</bean>
+
+	<bean id="neo4jDaoTemplate" class="com.ctbri.dao.neo4j.core.Neo4jTemplate">
+		<property name="neo4jPool" ref="neo4jPool" />
+	</bean>
+
+	<!-- 引入属性文件 -->
+	<context:property-placeholder location="classpath:config.properties" />
+
+	<!-- mybatis相关配置 -->
+
+	<!-- 配置主数据源 -->
+	<bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+
+		<property name="url" value="${mysql.url}" />
+		<property name="driverClassName" value="${mysql.driverClassName}" />
+		<property name="username" value="${mysql.username}" />
+		<property name="password" value="${mysql.password}" />
+
+		<!-- 初始化连接大小 -->
+		<property name="initialSize" value="10" />
+		<!-- 连接池最大使用连接数量 -->
+		<property name="maxActive" value="200" />
+		<!-- 连接池最小空闲 -->
+		<property name="minIdle" value="5" />
+		<!-- 获取连接最大等待时间 -->
+		<property name="maxWait" value="30000" />
+
+		<property name="validationQuery" value="SELECT 1" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="testWhileIdle" value="true" />
+
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="300000" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="25200000" />
+
+		<!-- 打开removeAbandoned功能 -->
+		<property name="removeAbandoned" value="true" />
+		<!---超过时间限制，回收没有用(废弃)的连接（默认为 300秒） -->
+		<property name="removeAbandonedTimeout" value="180" />
+		<!-- 关闭abanded连接时输出错误日志 -->
+		<property name="logAbandoned" value="true" />
+
+		<!-- 监控数据库 -->
+		<property name="filters" value="mergeStat" />
+	</bean>
+
+	<bean id="paginationInterceptor" class="com.ctbri.dao.mybatis.page.PageHelper" />
+
+	<!-- myBatis文件 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="typeAliasesPackage" value="com.ctbri.ctuiinspection.pojo" />
+		<!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
+		<property name="mapperLocations" value="classpath*:mapping/*.xml" />
+		<!-- 加载分页插件 -->
+		<property name="plugins" ref="paginationInterceptor" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.ctbri.ctuiinspection.dao.mapper" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+
+</beans>

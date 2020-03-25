@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper  namespace="com.ctbri.iinspection.dao.mapper.CrimeNearCaseMapper" >
+
+	<resultMap type="CrimeNearCase" id="crimeNearCase">
+		<result column="crime_id" property="crimeId"/>
+		<result column="ByHour" property="byHour"/>
+		<result column="SumByHourCount" property="sumByHourCount"/>
+	</resultMap>
+
+	<!-- 查询案件简要信息 -->
+	<select id="findCrimeNearCaseById" resultMap="crimeNearCase">
+		SELECT crime_id,ByHour,SumByHourCount
+		FROM dim_crime_brief_nearcasebyhour
+		WHERE crime_id = #{crimeId}
+	</select>
+
+</mapper>

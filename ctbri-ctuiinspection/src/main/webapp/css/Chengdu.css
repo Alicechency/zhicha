@@ -1,0 +1,101 @@
+html{
+    width: 100%;
+    height: 95%;
+}
+body{
+    margin: 0;
+    padding: 0;
+    overflow-x:hidden;
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+}
+#main{
+    width: 100%;
+    height: 90%;
+    margin: auto;
+    padding: auto;
+}
+#estimateResult{
+    width: 100%;
+    cursor:pointer;
+}
+#let{
+    height: 36%;
+    width: 100%;
+}
+#resultChart{
+    width: 100%;
+    height:315px;
+}
+#case-Result{
+    height: 300px;
+}
+#case-detail{
+    display: none;
+    width: 380px;
+    height: 200px;
+    z-index: 9999;
+    position:absolute;
+    right: 160px;
+    font-size: 14px;
+}
+#background-prompt{
+    background: url("../img/blueblock.png");
+    width: 100%;
+    height: 30px;
+    text-indent: 20px;
+    color: white;
+    font-weight: bold;
+    padding-top:5px;
+}
+#prompt-content{
+    text-indent: 20px ;
+    background: #FFFFFF;
+    height: 200px;
+    width: 370px;
+}
+#case-file{
+    cursor:pointer;
+}
+#search-case input {
+    border-radius: 6px 0px 0px 6px;
+}
+#search-case{
+    position: relative;
+    left: 1125px;
+    top: -62px;
+}
+#searchButton{
+    background-color: rgb(109,99,247);
+}
+#ResultLeft a{
+    color: #666666;
+    text-decoration: none;
+    font-size: 18px;
+}
+#ResultLeft a:hover{
+    color: #4e80ff;
+    text-decoration: underline;
+}
+#ResultLeft a:active{
+    color: #4e80ff;
+    text-decoration: underline;
+}
+#th-first{
+    font-size: 18px;
+    font-weight: bold;
+}
+#case-pagination{
+   position: absolute;
+    right: 30px;
+}
+#recommend-pagination{
+    position: absolute;
+    right: 30px;
+}
+tr:hover{
+    color:#4E80FF;
+    font-weight: bold;
+    background-color: #E5E5E5;
+}

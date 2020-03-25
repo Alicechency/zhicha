@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ctbri.iinspection.dao.mapper.SuspectMapper">
+
+	<sql id="suspectColumns">
+		id,important_person_no,important_person_name,identity_no,important_person_detail,warning_level
+	</sql>
+	
+	<resultMap type="Suspect" id="suspect">
+		<id column="id" property="id"/>
+		<result column="important_person_no" property="importantPersonNo"/>
+		<result column="important_person_name" property="importantPersonName"/>
+		<result column="identity_no" property="identityNo"/>
+		<result column="important_person_detail" property="importantPersonDetail"/>
+		<result column="warning_level" property="warningLevel"/>
+	</resultMap>
+	
+	<resultMap type="Suspect" id="suspectAndDetail">
+		<id column="id" property="id"/>
+		<result column="important_person_no" property="importantPersonNo"/>
+		<result column="important_person_name" property="importantPersonName"/>
+		<result column="identity_no" property="identityNo"/>
+		<result column="important_person_detail" property="importantPersonDetail"/>
+		<result column="warning_level" property="warningLevel"/>
+		<collection property="suspectDetails" ofType="SuspectDetail">
+			<id column="detail_id" property="id"/>
+	        <result column="important_person_no" property="importantPersonNo"/>
+	        <result column="activity_date" property="activityDate"/>
+	        <result column="activity_location" property="activityLocation"/>
+	        <result column="social_location" property="socialLocation"/>
+	        <result column="activity_detail" property="activityDetail"/>
+	        <result column="suggestion" property="suggestion"/>
+	        <result column="activity_longtitude" property="activityLongtitude"/>
+	        <result column="activity_latitude" property="activityLatitude"/>
+		</collection>
+	</resultMap>
+
+	<!-- 读取所有的嫌疑人记录数 -->
+	<select id="countSuspects" resultType="Integer">
+		select
+		count(id)
+		from dim_suspect_base_info
+	</select>
+	
+	<!-- 通过预警级别查询记录数 -->
+	<select id="countSuspectsByWarningLevel" parameterType="Integer" resultType="Integer">
+		select
+		count(id)
+		from dim_suspect_base_info
+		where warning_level = #{warningLevel}
+	</select>
+	
+	<!-- 查询所有案件 -->
+	<select id="findAllSuspects"  resultMap="suspect">
+		select 
+		<include refid="suspectColumns"/> 		
+		from dim_suspect_base_info 
+	</select>
+	
+	<!-- 通过预警级别查询嫌疑人信息 -->
+	<select id="findSuspectsByWarningLevel"  resultMap="suspect">
+		select 
+		<include refid="suspectColumns"/> 		
+		from dim_suspect_base_info 
+		where warning_level = #{warningLevel}
+	</select>
+	
+	<!-- 通过嫌疑人姓名进行模糊查询 -->
+	<select id="findSuspectsByName" resultMap="suspect">
+		select
+		<include refid="suspectColumns"/>
+		from dim_suspect_base_info
+		where important_person_name like CONCAT(CONCAT("%", #{importantPersonName}), "%")
+	</select>
+	
+	<!-- 通过id获取嫌疑人的详情信息 -->
+	<select id="findSuspectDetailById" resultMap="suspectAndDetail">
+		SELECT info.*,detail.*
+		FROM dim_suspect_base_info info,dim_supervisory_detail detail
+		WHERE info.id = #{suspectId} AND info.important_person_no = detail.important_person_no ORDER BY activity_date
+	</select>
+	
+	<!-- 通过嫌疑人编号查询嫌疑人信息 -->
+	<select id="findSuspectsByIds" resultMap = "suspect">
+		SELECT 
+		<include refid="suspectColumns"></include> 	
+		FROM dim_suspect_base_info
+		WHERE important_person_no IN 
+		<foreach collection="importantPersonNos" item="importantPersonNo" index="index" separator="," open="(" close=")" > 
+	        #{importantPersonNo}
+	    </foreach>
+	</select>
+	
+	<!-- 通过重要人员ID查询嫌疑人信息 -->
+	<select id="findSuspectByImportantPersonNo" resultMap="suspect">
+		SELECT 
+		<include refid="suspectColumns"></include> 
+		FROM dim_suspect_base_info
+		WHERE important_person_no = #{importantPersonNo}
+	</select>
+	
+</mapper>

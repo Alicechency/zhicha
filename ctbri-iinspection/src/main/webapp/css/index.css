@@ -1,0 +1,90 @@
+body{
+    list-style: none;
+}
+.oneLevel {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #dd4b39 !important;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    vertical-align: middle;
+}
+
+.twoLevel {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #f39c12 !important;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    vertical-align: middle;
+}
+
+.thridLevel {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: yellow;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    vertical-align: middle;
+}
+
+.forthLevel {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #3c8dbc !important;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    vertical-align: middle;
+}
+
+.definecolor {
+    background-color: yellow;
+}
+.detail{
+    float: right;
+}
+.personinfo{
+    list-style: none;
+}
+.suspectInfo{
+    width: 305px;
+    display: none;
+   /* position: absolute;*/
+   padding: 10px;
+}
+#close{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    display: none;
+    margin-right: 10px;
+}
+#importantPerson{
+    height: 460px;
+    width: 500px;
+}
+.know{
+    height: 460px;
+    width: 25%;
+    padding: 10px;
+    margin-right: -15px;
+}
+.knowMore{
+    display: none;
+    padding: 10px;
+}
+#trace-graph {
+    width: 1000px;
+    height: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}

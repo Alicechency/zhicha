@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ctbri.iinspection.dao.mapper.SupervisoryAssociationMapper" >
+
+	<resultMap type="SupervisoryAssociation" id="supervisoryAssociation">
+		<id column="id" property="id"/>
+		<result column="start_person_id" property="startPersonId"/>
+		<result column="start_person_name" property="startPersonName"/>
+		<result column="start_category" property="startCategory"/>
+		<result column="end_person_id" property="endPersonId"/>
+		<result column="end_person_name" property="endPersonName"/>
+		<result column="end_category" property="endCategory"/>
+		<result column="frequency" property="frequency"/>
+	</resultMap>
+
+	<!-- 通过起始点查询-->
+	<select id="findByStartWord" parameterType="java.util.Map" resultMap="supervisoryAssociation">
+		select id,start_person_id,start_person_name,start_category,end_person_id,end_person_name,end_category,frequency
+		from dim_supervisory_association
+		where start_person_name = #{word} ORDER BY frequency DESC LIMIT #{limit}
+	</select>
+	
+	<!-- 通过起始点查询，并过滤特定结束点 -->
+	<select id="findByStartWordAndExcludeEndWord" parameterType="java.util.Map" resultMap="supervisoryAssociation">
+		select id,start_person_id,start_person_name,start_category,end_person_id,end_person_name,end_category,frequency
+		from dim_supervisory_association
+		where start_person_name = #{word} And end_person_name != #{excludeWord} ORDER BY frequency DESC LIMIT #{limit}
+	</select>
+	
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ctbri.iinspection.dao.mapper.CaseTagMapper" >
+
+	<resultMap type="CaseTag" id="tag">
+		<id column="tag_id" property="tagId"/>
+		<result column="tag_name" property="tagName"/>
+		<result column="tag_class" property="tagClass"/>
+	</resultMap>
+
+	<!-- 查询所有标签-->
+	<select id="findAllTags" resultMap="tag">
+		select tag_id,tag_name,tag_class
+		from dim_tag
+		where tag_class is not null
+	</select>
+		
+</mapper>

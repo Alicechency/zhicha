@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ctbri.iinspection.dao.mapper.CrimeRelationshipMapper" >
+
+	<resultMap type="CrimeRelationship" id="crimeRelationShip">
+		<id column="crid" property="crId"/>
+		<result column="crime_id" property="crimeId"/>
+		<result column="casetype" property="caseType"/>
+		<result column="casevalues" property="caseValue"/>
+		<result column="distance" property="distance"/>
+		<result column="nearcrime_id" property="nearCrimeId"/>
+	</resultMap>
+
+	<!-- 通过案件ID查询 -->
+	<select id="findByCrimeId" parameterType="java.lang.Long" resultMap="crimeRelationShip">
+		select crid,crime_id,casetype,casevalues,distance,nearcrime_id
+		from dim_crime_relationship
+		where crime_id = #{crimeId}
+	</select>
+			
+</mapper>

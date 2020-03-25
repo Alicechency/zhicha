@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ctbri.ctuiinspection.dao.mapper.LawyerMapper" >
+
+	<resultMap type="Lawyer" id="simpleLawyer">
+		<id column="lawyer_id" property="lawyerId"/>
+		<result column="lawyer_name" property="name"/>
+		<result column="lawyer_type" property="type"/>
+		<result column="lawyer_case_id" property="caseId"/>
+	</resultMap>
+	
+	<resultMap type="Lawyer" id="singleWinPercentage">
+		<id column="lawyer_case_id" property="caseId"/>
+		<result column="case_judge_result" property="judgeResult"/>
+		<result column="lawyer_type" property="type"/>
+	</resultMap>
+
+	<!-- 根据ID集合获取推荐律师 -->
+	<select id="findRecommendedLawyerByCaseIds" resultMap="simpleLawyer">
+		select lawyer_id,lawyer_name,lawyer_type,lawyer_case_id
+		from dim_lawyer_person
+		where lawyer_case_id in
+		<foreach collection="array" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</select>
+	
+	<select id="findWinPercentageByLawyerName" parameterType="string" resultMap="singleWinPercentage">
+		SELECT lawyer_type, case_judge_result,case_id
+		FROM dim_lawyer_person,dim_case
+		WHERE lawyer_name = #{lawyerName} AND lawyer_case_id = case_id
+	</select>
+	
+	<select id="findLawyerById" parameterType="int" resultMap="simpleLawyer">
+		select lawyer_id,lawyer_name,lawyer_type,lawyer_case_id
+		from dim_lawyer_person
+		where lawyer_id = #{lawyerId}
+	</select>
+		
+</mapper>

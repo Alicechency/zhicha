@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ctbri.iinspection.dao.mapper.OutsiderMapper">
+
+	<resultMap type="Outsider" id="outsider">
+		<id column="id" property="id" />
+		<result column="latitude" property="latitude" />
+		<result column="longitude" property="longitude" />
+		<result column="date" property="date" />
+		<result column="unique_users" property="uniqueUsers" />
+	</resultMap>
+
+	<!-- 通过日期、经纬度查询外来人口信息 -->
+	<select id="findOutsiderByDate" parameterType="java.util.Map" resultMap="outsider">
+		select id,latitude,longitude,date,unique_users
+		from dim_outsider
+		<![CDATA[where latitude >= #{leftlatitude} And latitude <= #{rightlatitude} And longitude >= #{leftlongitude} And longitude <= #{rightlongitude} And date = #{date}
+	 ]]>
+	</select>
+
+</mapper>

@@ -1,0 +1,238 @@
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    background-color: #eee;
+}
+
+
+/*鎺у埗闈㈡澘*/
+
+#ctl-board {
+    width: 100%;
+    height: 8%;
+    margin-top: -21px;
+    padding: 10px 30px;
+    background-color: #eee;
+}
+
+#btn-grp span {
+    cursor: pointer;
+}
+
+#btn-grp img {
+    width: 40px;
+    height: 40px;
+}
+
+#sel-heatmap {
+    display: inline;
+    margin-left: 20px;
+}
+
+#sel-heatmap select {
+    display: inline-block;
+    width: 120px;
+}
+
+#time-ctl {
+    margin-left: 40px;
+}
+
+#time-ctl input,
+#outsider-time-choose input,
+#crime-predict-choose input {
+    max-width: 150px;
+}
+
+#time-ctl .add-on,
+#outsider-time-choose .add-on,
+#crime-predict-choose .add-on {
+    width: 34px;
+}
+
+#time-ctl i,
+#outsider-time-choose i,
+#crime-predict-choose i {
+    margin-right: -15px;
+    margin-top: -5px;
+    font-size: 25px;
+    color: #888;
+}
+
+#police-station-menu img {
+    position: relative;
+    top: 12px;
+    width: 25px;
+    height: 25px;
+}
+
+#outsider-time-choose,
+#crime-predict-choose {
+    display: none;
+    position: absolute;
+    top: 14%;
+    left: 160px;
+}
+
+#outsider-time-choose,
+#crime-predict-choose {
+    background-color: #eee;
+    border-radius: 0 0 5px 5px;
+}
+
+#outsider-time-choose .input-group,
+#crime-predict-choose .input-group {
+    margin: 5px 10px;
+}
+
+#crime-predict-choose select {
+    width: 150px;
+    margin: 5px;
+}
+
+#crime-predict-btngrp {
+    margin: 5px;
+    text-align: center;
+}
+
+
+/*鏃堕棿杞存彃浠跺姩鎬佹坊鍔犵殑*/
+
+#irs-1 {
+    margin: 0 5px;
+}
+
+
+/*鍦板浘鐩稿叧*/
+
+#main {
+    position: relative;
+    width: 100%;
+    height: 86%;
+    padding: 0;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+}
+
+
+/*渚ц竟鏍忕浉鍏�*/
+
+#side-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0%;
+    height: 100%;
+    background-color: rgba(37, 40, 48, 0.8);
+    overflow: auto;
+}
+
+#side-chart {
+    background-color: rgba(37, 40, 48, 0.8);
+}
+
+
+/*tip鏍峰紡*/
+
+#map-scatter-tip {
+    display: none;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    border-style: solid;
+    padding: 5px;
+    white-space: nowrap;
+    z-index: 9999999;
+    transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1), top 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    background-color: rgba(50, 50, 50, 0.7);
+    border-width: 0px;
+    border-color: rgb(51, 51, 51);
+    border-radius: 4px;
+    color: rgb(255, 255, 255);
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-size: 14px;
+    font-family: sans-serif;
+    line-height: 21px;
+}
+
+#map-logo {
+    position: fixed;
+    left: 10px;
+    bottom: 10px;
+}
+
+
+/*渚ц竟鏍忓叧闂寜閽牱寮�*/
+
+.iconfont {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: #fff;
+    cursor: pointer;
+}
+
+#side-chart-container {
+    width: 480px;
+    height: 300px;
+    margin: 0 auto;
+}
+
+#side-list {
+    width: 100%;
+    background-color: rgba(37, 40, 48, 0.8);
+}
+
+#side-list .panel-body .panel-heading:hover {
+    background-color: #a6e1ec;
+    cursor: pointer;
+}
+
+#side-list .panel-body .panel-body {
+    color: #000;
+}
+
+#side-list .panel-body {
+    color: #ccc;
+}
+
+#side-detail {
+    width: 100%;
+    background-color: rgba(37, 40, 48, 0.8);
+}
+
+#side-detail .panel-body {
+    color: #ccc;
+}
+
+#side-abstract {
+    width: 100%;
+    background-color: rgba(37, 40, 48, 0.8);
+}
+#side-abstract .panel-body {
+    color: #ccc;
+}
+#side-abstract .panel-body .panel-heading:hover {
+    background-color: #a6e1ec;
+    cursor: pointer;
+}
+#case-chart-container {
+    width: 100%;
+    height: 180px;
+    margin: 0 auto;
+}
+
+/*渚ц竟鏍忓悇妯″潡鐨勬爣棰樻牱寮�*/
+
+#side-panel .panel-heading h3 {
+    color: #ccc;
+}

@@ -1,0 +1,54 @@
+.info-box {
+    display: block;
+    width: 100%;
+    min-height: 60px;
+    margin-bottom: 15px;
+    border-radius: 2px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    background: #fff;
+}
+
+.info-box-icon {
+    float: left;
+    display: block;
+    width: 90px;
+    height: 60px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 2px;
+    line-height: 90px;
+    text-align: center;
+    font-size: 45px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.info-box-content {
+    padding: 5px 10px;
+    margin-left: 90px;
+}
+
+#chart-moodTrend {
+    width: 100%;
+    height: 500px;
+    margin: 0 auto;
+}
+
+#chart-volumeTrend {
+    width: 100%;
+    height: 450px;
+}
+
+#negativeOpinion {
+    width: 100%;
+    height: 90%;
+}
+
+#negativeOpinion img {
+    
+}
+
+.titleList {
+    margin-bottom: -30px;
+    margin-left: 10px;
+}

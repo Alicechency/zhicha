@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+">
+
+    <context:component-scan base-package="com.ctbri.dsearch" />
+
+    <!-- 引入属性文件 -->
+    <context:property-placeholder location="classpath:config.properties" />
+
+    <!-- ES相关配置 -->
+
+    <bean id="poolConfig" class="com.ctbri.common.pool.PoolConfig">
+        <property name="maxTotal" value="${pool.maxTotal}" />
+        <property name="maxIdle" value="${pool.maxIdle}" />
+        <property name="minIdle" value="${pool.minIdle}" />
+    </bean>
+
+    <bean id="esBean" class="com.ctbri.dao.es.pool.ESBean">
+        <property name="clusterName" value="${es.clusterName}" />
+        <property name="xpackName" value="${es.xpackName}" />
+        <property name="ip" value="${es.ip}" />
+        <property name="port" value="${es.port}" />
+        <property name="defaultIndex" value="${es.defaultIndex}" />
+    </bean>
+
+    <bean id="esPoolFactory" class="com.ctbri.dao.es.pool.ESPoolFactory" scope="singleton">
+        <property name="esBean" ref="esBean" />
+    </bean>
+    
+    <bean id="esPool" class="com.ctbri.dao.es.pool.ESPool">
+        <constructor-arg index="0" ref="esPoolFactory"/>
+        <constructor-arg index="1" ref="poolConfig"/>
+    </bean>
+
+    <bean id="esDaoTemplate" class="com.ctbri.dao.es.core.ESDaoTemplate">
+        <property name="index" value="${es.defaultIndex}" />
+        <property name="esPool" ref="esPool" />
+    </bean>
+
+
+    <!-- Neo4j相关配置 -->
+
+    <bean id="neo4jBean" class="com.ctbri.dao.neo4j.pool.Neo4jBean">
+        <property name="url" value="${neo4j.url}" />
+        <property name="username" value="${neo4j.username}" />
+        <property name="password" value="${neo4j.password}" />
+    </bean>
+
+    <bean id="neo4jPoolFactory" class="com.ctbri.dao.neo4j.pool.Neo4jPoolFactory" scope="singleton">
+        <property name="neo4jBean" ref="neo4jBean" />
+    </bean>
+    
+    <bean id="neo4jPool" class="com.ctbri.dao.neo4j.pool.Neo4jPool">
+        <constructor-arg index="0" ref="neo4jPoolFactory"/>
+        <constructor-arg index="1" ref="poolConfig"/>
+    </bean>
+
+    <bean id="neo4jDaoTemplate" class="com.ctbri.dao.neo4j.core.Neo4jTemplate">
+        <property name="neo4jPool" ref="neo4jPool" />
+    </bean>
+
+</beans>

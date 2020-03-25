@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ctbri.ctuiinspection.dao.mapper.CaseMapper" >
+
+	<resultMap type="Case" id="simpleCase">
+		<id column="case_id" property="caseId"/>
+		<result column="case_title" property="title"/>
+		<result column="case_badge" property="badge"/>
+		<result column="case_incident" property="incident"/>
+		<result column="case_judge_cause" property="judgeCause"/>
+		<result column="case_judgement" property="judgement"/>
+		<result column="case_date" property="date"/>
+		<result column="case_clerk" property="clerk"/>
+		<result column="case_judge_result" property="judgeResult"/>
+		<result column="case_chief_judge" property="chiefJudge"/>
+		<result column="case_judger" property="judger"/>
+	</resultMap>
+
+	<!-- 根据ID集合获取案件信息 -->
+	<select id="findCasesByIds" resultMap="simpleCase">
+		select case_id,case_date,case_title,case_judge_result,case_judgement
+		from dim_case
+		where case_id in
+		<foreach collection="list" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</select>
+	
+	<select id="findCaseTitleByCaseId" resultType="string">
+		select case_title
+		from dim_case
+		where case_id = #{caseId}
+	</select>
+		
+</mapper>

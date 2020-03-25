@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper  namespace="com.ctbri.iinspection.dao.mapper.CrimeBriefMapper" >
+
+	<resultMap type="CrimeBrief" id="crimeBrief">
+		<id column="crime_id" property="crimeId"/>
+		<result column="crime_brief" property="crimeBrief"/>
+		<result column="debug" property="debug"/>
+	</resultMap>
+
+	<!-- 查询案件简要信息 -->
+	<select id="findCrimebriefById" resultMap="crimeBrief">
+		SELECT crime_id,crime_brief,debug
+		FROM dim_crime_brief
+		WHERE crime_id = #{crimeId}
+	</select>
+
+</mapper>
