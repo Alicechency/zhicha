@@ -35,7 +35,7 @@
 		<mybatis.spring.version>1.2.2</mybatis.spring.version>
 		<mysql.version>5.1.32</mysql.version>
 		<log4j.version>1.2.17</log4j.version>
-		<log4j-core.version>2.7</log4j-core.version>
+		<log4j-core.version>2.13.2</log4j-core.version>
 		<druid.version>1.0.13</druid.version>
 		<jstl.version>1.2</jstl.version>
 		<servlet-api.version>2.5</servlet-api.version>
